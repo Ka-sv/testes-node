@@ -5,7 +5,7 @@
 ## Resumo do projeto
 
 Projeto de API REST para prática de JavaScript.
-Livraria com sistema de cadastro e manejo de livros, autores e editoras.
+Livraria com sistema de cadastro e manejo de livros, autores,editoras e usuários.
 
 
 ## Stack utilizada
@@ -21,28 +21,62 @@ Livraria com sistema de cadastro e manejo de livros, autores e editoras.
 Este projeto já conta com o código necessário para subir a API em um servidor local:
 
 ```
+├── .env
+├── .eslintrc.cjs
+├── .gitignore
+├── .nvmrc
 ├── package.json
 ├── package-lock.json
+├── populate.sql
 ├── README.md
 ├── server.js
 ├── src
 │   ├── app.js
+│   ├── config
+│   │   └── constants.js
+│   │   └── nodeMailer.js
 │   ├── controllers
-│   │   └── livrosController.js
+│   │   └── aluguelLivroController.js
+│   │   └── authController.js
 │   │   └── autoresController.js
 │   │   └── editorasController.js
+│   │   └── livrosController.js
+│   │   └── livrosImagensController.js
+│   │   └── usuariosController.js
 │   ├── db
-│   │   ├── dbconfig.js
+│   │   └── dbconfig.js
 │   │   └── livraria.sqlite
+│   ├── middleware
+│   │   └── autenticado.js
 │   ├── models
-│   │   └── livro.js
+│   │   └── aluguel_livro.js
 │   │   └── autor.js
 │   │   └── editora.js
-│   └── routes
-│       ├── autoresRoutes.js
-│       ├── editorasRoutes.js
-│       ├── index.js
-│       └── livrosRoutes.js
+│   │   └── livro_imagem.js
+│   │   └── livro.js
+│   │   └── usuario.js
+│   ├── routes
+│   │   └── aluguelLivroRoutes.js
+│   │   └── authRoutes.js
+│   │   └── autoresRoutes.js
+│   │   └── editorasRoutes.js
+│   │   └── index.js
+│   │   └── livrosImagensRoutes.js
+│   │   └── livrosRoutes.js
+│   │   └── usuariosRoutes.js
+│   ├── services
+│   │   └── aluguelLivroService.js
+│   │   └── authService.js
+│   │   └── autoresService.js
+│   │   └── editorasService.js
+│   │   └── livrosImagensService.js
+│   │   └── livrosService.js
+│   │   └── usuariosService.js
+│   ├── test
+│   │   │   ├── models
+│   │   │   │   └── editora.test.js
+│   │   │   ├── routes
+│   │   │   │   └── editorasRoutes.test.js
 ```
 
 
@@ -182,6 +216,10 @@ Você pode utilizar o CLI do SQLite para fazer consultas ao banco e conferir se 
 
 A API expõe os seguintes *endpoints* a partir da *base URL* `localhost:3000`:
 
+`/auth`
+* `POST /login`
+* `POST /cadastrar`
+
 `/livros`
 * `GET /livros`
 * `GET /livros/:id`
@@ -205,9 +243,22 @@ A API expõe os seguintes *endpoints* a partir da *base URL* `localhost:3000`:
 * `PUT /editoras/:id`
 * `DELETE /editoras/:id`
 
+`/aluguel-livro`
+* `GET /aluguel-livro`
+* `GET /aluguel-livro/:id`
+* `POST /aluguel-livro`
+* `GET /aluguel-livro/devolver/:id`
+* `DELETE /aluguel-livro/:id`
 
-## Roadmap
+`/livros-imagens`
+* `GET /livros-imagens`
+* `GET /livros-imagens/:id`
+* `POST /livros-imagens`
+* `PUT /livros-imagens/:id`
+* `DELETE /livros-imagens/:id`
 
-* Autenticação
-* Tratamento de erros
-* Validações
+`/usuarios`
+* `GET /usuarios`
+* `GET /usuarios/:id`
+* `PUT /usuarios/:id`
+* `DELETE /usuarios/:id`
